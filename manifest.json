@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Unfeed",
+  "version": "0.1.0",
+  "description": "A calm front door for Trojan-horse sites. Gates the feed route (not the whole site) so the slop never ambushes you on the way in.",
+  "permissions": [
+    "declarativeNetRequest",
+    "alarms",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://linkedin.com/*",
+    "https://substack.com/*",
+    "https://*.substack.com/*"
+  ],
+  "background": {
+    "service_worker": "src/service-worker.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "interstitial.html",
+        "src/interstitial.js",
+        "src/resolveGate.js",
+        "src/catalog.js",
+        "styles/interstitial.css",
+        "assets/flower.svg"
+      ],
+      "matches": [
+        "https://*.linkedin.com/*",
+        "https://linkedin.com/*",
+        "https://substack.com/*",
+        "https://*.substack.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Unfeed"
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unfeed</title>
+    <link rel="stylesheet" href="styles/interstitial.css" />
+  </head>
+  <body>
+    <main class="screen">
+      <!-- Replace assets/flower.svg with your own artwork. -->
+      <img id="flower" class="flower" src="assets/flower.svg" alt="" />
+      <h1 id="prompt" class="prompt">Where did you mean to go?</h1>
+
+      <!-- Curated useful doors (instant, inviting). Populated by the script. -->
+      <nav id="doors" class="doors" aria-label="Where did you mean to go?"></nav>
+
+      <!-- The feed path: deliberately quieter and gated by an enforced pause. -->
+      <div class="feed-zone">
+        <button id="continue" class="continue" type="button" disabled>
+          Continue to feed
+        </button>
+      </div>
+
+      <button id="leave" class="leave" type="button">Leave</button>
+    </main>
+
+    <script type="module" src="src/interstitial.js"></script>
+  </body>
+</html>
