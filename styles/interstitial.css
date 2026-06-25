@@ -27,15 +27,32 @@ body {
 
 .screen {
   width: min(520px, 90vw);
+  min-height: 100vh;
   text-align: center;
-  padding: 2.5rem 1.5rem;
+  padding: 2rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The flower's stage — claims all the slack above the bottom panel and
+   centers the artwork within it. */
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
 }
 
 .flower {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 1.5rem;
+  width: min(260px, 60vw);
+  height: auto;
   opacity: 0.9;
+}
+
+/* Prompt, doors, and feed path — grouped at the bottom of the screen. */
+.panel {
+  flex: 0 0 auto;
 }
 
 .prompt {
@@ -45,17 +62,21 @@ body {
   line-height: 1.35;
 }
 
-/* Useful doors — big, inviting, instant. */
+/* Useful doors — big, inviting, instant. Laid out horizontally along the
+   bottom; they wrap to new rows when there are more than fit on one line. */
 .doors {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .door {
-  display: block;
+  flex: 1 1 0;
+  min-width: 8rem;
   padding: 0.9rem 1rem;
+  text-align: center;
   background: var(--door-bg);
   border: 1px solid var(--door-border);
   border-radius: 12px;
@@ -72,9 +93,9 @@ body {
   border-color: var(--accent);
 }
 
-/* The feed path — quiet, secondary, and time-taxed. */
+/* The feed path — quiet, secondary, and time-taxed. Sits beneath the doors. */
 .feed-zone {
-  margin-bottom: 1.75rem;
+  margin-bottom: 0;
 }
 
 .continue {
@@ -93,12 +114,26 @@ body {
   text-decoration: none;
 }
 
+/* Leave — pinned to the top-left corner, a quiet "go back" affordance. */
 .leave {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   background: none;
   border: none;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+}
+
+.leave-icon {
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .leave:hover {

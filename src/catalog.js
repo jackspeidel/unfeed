@@ -6,8 +6,8 @@
 // URL) so the same pattern feeds chrome.declarativeNetRequest's `regexFilter`
 // and `new RegExp(...)` in resolveGate. They are matched case-insensitively.
 
-export const PASS_MINUTES = 10; // how long "continue to feed" grants access
-export const PAUSE_SECONDS = 5; // enforced wait before "continue to feed" is clickable
+export const PASS_MINUTES = 8; // how long "continue to feed" grants access
+export const PAUSE_SECONDS = 10; // enforced wait before "continue to feed" is clickable
 
 export const CATALOG = [
   {
@@ -39,7 +39,7 @@ export const CATALOG = [
       '^https://substack\\.com/?($|\\?|#)'
     ],
     doors: [
-      { label: 'Reading (Inbox)', url: 'https://substack.com/inbox' }
+      { label: 'Inbox', url: 'https://substack.com/inbox' }
     ]
   }
 ];

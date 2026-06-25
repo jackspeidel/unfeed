@@ -7,22 +7,43 @@
     <link rel="stylesheet" href="styles/interstitial.css" />
   </head>
   <body>
+    <header class="banner">
+      <button id="leave" class="leave" type="button" aria-label="Leave">
+        <svg class="leave-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M14 6l-6 6 6 6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Leave
+      </button>
+    </header>
+
     <main class="screen">
+      <!-- The flower takes center stage, filling the open space above. -->
       <!-- Replace assets/flower.svg with your own artwork. -->
-      <img id="flower" class="flower" src="assets/flower.svg" alt="" />
-      <h1 id="prompt" class="prompt">Where did you mean to go?</h1>
-
-      <!-- Curated useful doors (instant, inviting). Populated by the script. -->
-      <nav id="doors" class="doors" aria-label="Where did you mean to go?"></nav>
-
-      <!-- The feed path: deliberately quieter and gated by an enforced pause. -->
-      <div class="feed-zone">
-        <button id="continue" class="continue" type="button" disabled>
-          Continue to feed
-        </button>
+      <div class="stage">
+        <img id="flower" class="flower" src="assets/flower.svg" alt="" />
       </div>
 
-      <button id="leave" class="leave" type="button">Leave</button>
+      <!-- Prompt, doors, and the feed path settle along the bottom. -->
+      <div class="panel">
+        <h1 id="prompt" class="prompt">Where would you like to go?</h1>
+
+        <!-- Curated useful doors (instant, inviting). Populated by the script. -->
+        <nav id="doors" class="doors" aria-labelledby="prompt"></nav>
+
+        <!-- The feed path: deliberately quieter and gated by an enforced pause. -->
+        <footer class="feed-zone">
+          <button id="continue" class="continue" type="button" disabled>
+            Continue to feed
+          </button>
+        </footer>
+      </div>
     </main>
 
     <script type="module" src="src/interstitial.js"></script>
