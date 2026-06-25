@@ -5,6 +5,10 @@
   "type": "module",
   "description": "A calm front door for Trojan-horse sites — gate the feed route, keep the tool.",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test \"test/*.test.js\"",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
   }
 }
