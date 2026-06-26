@@ -24,7 +24,7 @@ if (!gate) {
   promptEl.textContent = 'Taking you there…';
   if (dest) location.replace(dest);
 } else {
-  promptEl.textContent = `Headed to ${gate.name}? Where would you like to go?`;
+  promptEl.textContent = `Where would you like to go on ${gate.name}?`;
 
   // Useful doors — instant navigation, no friction.
   for (const door of gate.doors) {
