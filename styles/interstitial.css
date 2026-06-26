@@ -1,13 +1,66 @@
-/* Calm grey foyer. The asymmetry is intentional: useful doors are prominent and
-   inviting; "continue to feed" is quiet and taxed by a pause. */
+/* ============================================================
+   Unfeed — visual tokens (the single place to change the look).
+
+   Two layers, by design:
+     1) RAW   — the actual palette + typefaces of the current scheme.
+     2) ROLES — semantic names that the components reference.
+   Components below use ONLY role tokens (--color-*, --font-*), never
+   raw values. To try a different scheme later, swap the RAW block
+   (or add a [data-theme="…"] block that re-points the ROLES) and the
+   component CSS keeps working untouched.
+
+   Current scheme: "Paper & Sage" — ivory paper, soft-black ink, a
+   muted botanical-green accent. Black line-art illustrations read as
+   ink on pressed leaf. Useful doors carry the warmth; "continue to
+   feed" stays drab.
+   ============================================================ */
+
+/* --- Self-hosted fonts (no runtime CDN call). Open-source, SIL OFL 1.1,
+       fetched from Google's canonical font CDN and bundled locally. Each
+       is a single variable woff2 (weight is an axis), latin subset. To
+       swap a face, drop a new woff2 in assets/fonts and repoint --serif
+       / --sans below — nothing else needs to change. --- */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../assets/fonts/fraunces-latin-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-var.woff2") format("woff2");
+}
 
 :root {
-  --grey-bg: #e8e8e6;
-  --ink: #2b2b2b;
-  --muted: #8a8a86;
-  --door-bg: #ffffff;
-  --door-border: #d6d6d2;
-  --accent: #3a6ea5;
+  /* 1) RAW — "Paper & Sage" ------------------------------------------- */
+  --paper:       #f4f1ea; /* page ground */
+  --paper-raised:#fbfaf6; /* cards / doors */
+  --ink:         #20201e; /* primary text */
+  --grey-green:  #8a8a7e; /* muted / drab text */
+  --sage:        #6f8f6a; /* botanical accent */
+  --moss:        #51703f; /* accent, pressed/hover */
+  --sage-wash:   #e7ece2; /* faint green fill */
+  --hairline:    #e1e0d4; /* warm border */
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* 2) ROLES — components reference these only ------------------------ */
+  --color-bg:            var(--paper);
+  --color-surface:       var(--paper-raised);
+  --color-text:          var(--ink);
+  --color-text-muted:    var(--grey-green);
+  --color-accent:        var(--sage);
+  --color-accent-strong: var(--moss);
+  --color-accent-wash:   var(--sage-wash);
+  --color-line:          var(--hairline);
+
+  --font-display: var(--serif);
+  --font-body:    var(--sans);
 }
 
 * {
@@ -17,9 +70,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--grey-bg);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,14 +111,17 @@ body {
 }
 
 .prompt {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   margin: 0 0 2rem;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
-/* Useful doors — big, inviting, instant. Laid out horizontally along the
-   bottom; they wrap to new rows when there are more than fit on one line. */
+/* Useful doors — big, inviting, instant. They carry the scheme's warmth:
+   a calm raised surface at rest, blooming sage on hover. Laid out
+   horizontally; wrap to new rows when there are more than fit on a line. */
 .doors {
   display: flex;
   flex-flow: row wrap;
@@ -77,23 +135,27 @@ body {
   min-width: 8rem;
   padding: 0.9rem 1rem;
   text-align: center;
-  background: var(--door-bg);
-  border: 1px solid var(--door-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: 12px;
-  color: var(--ink);
+  color: var(--color-text);
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 500;
-  transition: transform 0.08s ease, box-shadow 0.12s ease;
+  transition: transform 0.08s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease, background-color 0.12s ease, color 0.12s ease;
 }
 
 .door:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  border-color: var(--accent);
+  background: var(--color-accent-wash);
+  border-color: var(--color-accent);
+  color: var(--color-accent-strong);
+  box-shadow: 0 6px 18px rgba(81, 112, 63, 0.12);
 }
 
-/* The feed path — quiet, secondary, and time-taxed. Sits beneath the doors. */
+/* The feed path — quiet, secondary, and time-taxed. Deliberately drab:
+   no color, no warmth. Sits beneath the doors. */
 .feed-zone {
   margin-bottom: 0;
 }
@@ -101,7 +163,8 @@ body {
 .continue {
   background: none;
   border: none;
-  color: var(--muted);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
   font-size: 0.95rem;
   text-decoration: underline;
   cursor: pointer;
@@ -124,7 +187,8 @@ body {
   gap: 0.25rem;
   background: none;
   border: none;
-  color: var(--muted);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
   font-size: 0.9rem;
   cursor: pointer;
   padding: 0.4rem 0.5rem;
@@ -137,5 +201,5 @@ body {
 }
 
 .leave:hover {
-  color: var(--ink);
+  color: var(--color-text);
 }
